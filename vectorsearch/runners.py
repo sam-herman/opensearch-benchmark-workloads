@@ -12,13 +12,17 @@ from osbenchmark.client import RequestContextHolder
 
 from osbenchmark.utils.parse import parse_int_parameter, parse_string_parameter
 
+logger = logging.getLogger(__name__)
+
 
 def register(registry):
+    logger.info("will skip warmup indices as this was removed by jvector plugin")
     # Warm up api is idempotent, so we can safely retry until complete. This is required
     # so that search can perform without any initial load penalties
-    registry.register_runner(
-        WarmupIndicesRunner.RUNNER_NAME, Retry(WarmupIndicesRunner(), retry_until_success=True), async_runner=True
-    )
+    #registry.register_runner(
+    #    WarmupIndicesRunner.RUNNER_NAME, Retry(WarmupIndicesRunner(), retry_until_success=True), async_runner=True
+    #)
+
 
 request_context_holder = RequestContextHolder()
 
